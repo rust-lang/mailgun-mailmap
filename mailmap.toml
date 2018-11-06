@@ -24,28 +24,6 @@
 #   * rustlang.net
 
 [[lists]]
-address = 'test@rustlang.com'
-access_level = 'everyone'
-members = [
-  'acrichton@mozilla.com',
-]
-
-[[lists]]
-address = 'recursive@rustlang.com'
-access_level = 'everyone'
-members = [
-  'test@rustlang.com',
-]
-
-[[lists]]
-address = 'test-another-domain@rustlang.net'
-access_level = 'everyone'
-members = [
-  'test@rustlang.com',
-  'acrichton@mozilla.com',
-]
-
-[[lists]]
 address = 'admin@crates.io'
 access_level = 'everyone'
 members = [
