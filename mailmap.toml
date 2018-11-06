@@ -44,3 +44,24 @@ members = [
   'test@rustlang.com',
   'acrichton@mozilla.com',
 ]
+
+[[lists]]
+address = 'admin@crates.io'
+access_level = 'everyone'
+members = [
+  'admin@rust-lang.org',
+]
+
+[[lists]]
+address = 'legal@crates.io'
+access_level = 'everyone'
+members = [
+  'core-team@rust-lang.org',
+]
+
+[[lists]]
+address = 'help@crates.io'
+access_level = 'everyone'
+members = [
+  'crates-io@rust-lang.org',
+]
