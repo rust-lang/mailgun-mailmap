@@ -660,3 +660,11 @@ members = [
   "nfitzgerald@mozilla.com",
   "japaricious@gmail.com",
 ]
+
+[[lists]]
+address = 'www@rust-lang.org'
+access_level = 'everyone'
+members = [
+  "aturon@mozilla.com",
+  "ashley@integer32.com",
+]
