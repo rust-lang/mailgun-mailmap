@@ -117,7 +117,7 @@ members = [
   "manishsmail@gmail.com",
   "booyaabooyaabooyaa@gmail.com",
   "janerik@fnordig.de",
-  "ashley@integer32.com",
+  "ashley666ashley@gmail.com",
   "olivia@fastmail.com",
   "mrgould93@gmail.com",
   "amufti16@gmail.com",
@@ -199,7 +199,7 @@ members = [
 address = 'crates-io@rust-lang.org'
 access_level = 'everyone'
 members = [
-  "ashley@integer32.com",
+  "ashley666ashley@gmail.com",
   "carol.nichols@gmail.com",
   "acrichton@mozilla.com",
   "sean@seantheprogrammer.com",
@@ -316,7 +316,7 @@ members = [
   "mark.simulacrum@gmail.com",
   "aturon@mozilla.com",
   "kennytm@gmail.com",
-  "ashley@integer32.com",
+  "ashley666ashley@gmail.com",
   "sean@seantheprogrammer.com",
   "pietro@pietroalbini.org",
 ]
@@ -359,7 +359,7 @@ access_level = 'everyone'
 members = [
   "wg-leads@rust-lang.org",
   "aturon@mozilla.com",
-  "ashley@integer32.com",
+  "ashley666ashley@gmail.com",
   "nmatsakis@mozilla.com",
   "nrc@mozilla.com",
   "aidanhs@cantab.net",
@@ -469,7 +469,7 @@ members = [
 address = 'reach@rust-lang.org'
 access_level = 'everyone'
 members = [
-  "ashley@integer32.com",
+  "ashley666ashley@gmail.com",
   "carol.nichols@integer32.com",
   "dhosfelt@mozilla.com",
   "aidanhs@cantab.net",
@@ -504,7 +504,7 @@ members = [
   "acrichton@mozilla.com",
   "nmatsakis@mozilla.com",
   "nrc@mozilla.com",
-  "ashley@integer32.com",
+  "ashley666ashley@gmail.com",
   "mark.simulacrum@gmail.com",
   "twingoow@gmail.com",
   "mail@oli-obk.de",
@@ -548,7 +548,7 @@ members = [
 address = 'rustbridge@rust-lang.org'
 access_level = 'everyone'
 members = [
-  "ashley@integer32.com",
+  "ashley666ashley@gmail.com",
   "amufti16@gmail.com",
 ]
 
@@ -666,5 +666,5 @@ address = 'www@rust-lang.org'
 access_level = 'everyone'
 members = [
   "aturon@mozilla.com",
-  "ashley@integer32.com",
+  "ashley666ashley@gmail.com",
 ]
