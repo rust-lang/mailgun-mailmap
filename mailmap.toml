@@ -96,7 +96,7 @@ members = [
   "wycats@gmail.com",
   "woboats@gmail.com",
   "josh@joshtriplett.org",
-  "ncameron@mozilla.com",
+  "nick@ncameron.org",
   "eric@huss.org",
   "eh2406@wayne.edu",
   "dale.wijnand@gmail.com",
@@ -143,7 +143,7 @@ address = 'compiler@rust-lang.org'
 access_level = 'everyone'
 members = [
   "ariel.byd@gmail.com",
-  "nrc@mozilla.com",
+  "nick@ncameron.org",
   "pnkfelix@mozilla.com",
   "edy.burt@gmail.com",
   "nmatsakis@mozilla.com",
@@ -174,7 +174,7 @@ members = [
   "aturon@mozilla.com",
   "nmatsakis@mozilla.com",
   "erick.tryzelaar@gmail.com",
-  "nrc@mozilla.com",
+  "nick@ncameron.org",
   "carol.nichols@gmail.com",
   "mark.simulacrum@gmail.com",
   "ashley666ashley@gmail.com",
@@ -215,7 +215,7 @@ members = [
   "nfitzgerald@mozilla.com",
   "japaricious@gmail.com",
   "killercup@gmail.com",
-  "ncameron@mozilla.com",
+  "nick@ncameron.org",
 ]
 
 [[lists]]
@@ -294,7 +294,7 @@ members = [
   "lbullen@redhat.com",
   "aleksey.kladov@gmail.com",
   "xanewok@gmail.com",
-  "ncameron@mozilla.com",
+  "nick@ncameron.org",
 ]
 
 [[lists]]
@@ -326,7 +326,7 @@ address = 'lang-private@rust-lang.org'
 access_level = 'everyone'
 members = [
   "nmatsakis@mozilla.com",
-  "nrc@mozilla.com",
+  "nick@ncameron.org",
   "pnkfelix@mozilla.com",
   "aturon@mozilla.com",
   "edy.burt@gmail.com",
@@ -361,7 +361,7 @@ members = [
   "aturon@mozilla.com",
   "ashley666ashley@gmail.com",
   "nmatsakis@mozilla.com",
-  "nrc@mozilla.com",
+  "nick@ncameron.org",
   "aidanhs@cantab.net",
   "mark.simulacrum@gmail.com",
   "steve@steveklabnik.com",
@@ -461,7 +461,7 @@ address = 'production@rust-lang.org'
 access_level = 'everyone'
 members = [
   "aidanhs@cantab.net",
-  "nrc@mozilla.com",
+  "nick@ncameron.org",
   "claus.matzinger@gmail.com",
   "aturon@mozilla.com",
 ]
@@ -504,7 +504,7 @@ access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "nmatsakis@mozilla.com",
-  "nrc@mozilla.com",
+  "nick@ncameron.org",
   "ashley666ashley@gmail.com",
   "mark.simulacrum@gmail.com",
   "twingoow@gmail.com",
@@ -583,7 +583,7 @@ members = [
   "japaricious@gmail.com",
   "steve@steveklabnik.com",
   "npmazzuca@gmail.com",
-  "ncameron@mozilla.com",
+  "nick@ncameron.org",
 ]
 
 [[lists]]
