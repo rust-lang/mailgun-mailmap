@@ -8,10 +8,6 @@
 # Each mailing list has three keys:
 #
 #   * `address` - the email address of this mailing list (including the domain)
-#   * `access_level` - one of the following:
-#       * `readonly` - only authenticated users can post
-#       * `members` - only members can post to the list
-#       * `everyone` - anyone can post to the list
 #   * `members` - an array of email addresses to forward mail to
 #
 # All mailing lists behave the same way. When an email is received it then
@@ -20,33 +16,29 @@
 #
 # Current list of domains you can choose from:
 #
-#   * rustlang.com
-#   * rustlang.net
+#   * rust-lang.org
+#   * crates.io
 
 [[lists]]
 address = 'admin@crates.io'
-access_level = 'everyone'
 members = [
   'admin@rust-lang.org',
 ]
 
 [[lists]]
 address = 'legal@crates.io'
-access_level = 'everyone'
 members = [
   'core-team@rust-lang.org',
 ]
 
 [[lists]]
 address = 'help@crates.io'
-access_level = 'everyone'
 members = [
   'crates-io@rust-lang.org',
 ]
 
 [[lists]]
 address = 'admin@rust-lang.org'
-access_level = 'everyone'
 members = [
   "alex@crichton.co",
   "aturon@mozilla.com",
@@ -54,7 +46,6 @@ members = [
 
 [[lists]]
 address = 'all@rust-lang.org'
-access_level = 'everyone'
 members = [
   "community@rust-lang.org",
   "compiler@rust-lang.org",
@@ -69,28 +60,24 @@ members = [
 
 [[lists]]
 address = 'appveyor-libs@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-ops@googlegroups.com",
 ]
 
 [[lists]]
 address = 'appveyor@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-ops@googlegroups.com",
 ]
 
 [[lists]]
 address = 'bors@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
 ]
 
 [[lists]]
 address = 'cargo@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "wycats@gmail.com",
@@ -104,14 +91,12 @@ members = [
 
 [[lists]]
 address = 'community-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "community@rust-lang.org",
 ]
 
 [[lists]]
 address = 'community@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-community@googlegroups.com",
   "manishsmail@gmail.com",
@@ -133,14 +118,12 @@ members = [
 
 [[lists]]
 address = 'compiler-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "compiler@rust-lang.org",
 ]
 
 [[lists]]
 address = 'compiler@rust-lang.org'
-access_level = 'everyone'
 members = [
   "ariel.byd@gmail.com",
   "nick@ncameron.org",
@@ -159,14 +142,12 @@ members = [
 
 [[lists]]
 address = 'core-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "core@rust-lang.org",
 ]
 
 [[lists]]
 address = 'core@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "wycats@gmail.com",
@@ -183,21 +164,18 @@ members = [
 
 [[lists]]
 address = 'craterbot@rust-lang.org'
-access_level = 'everyone'
 members = [
   "infra@rust-lang.org",
 ]
 
 [[lists]]
 address = 'crates-io-cert@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-ops@googlegroups.com",
 ]
 
 [[lists]]
 address = 'crates-io@rust-lang.org'
-access_level = 'everyone'
 members = [
   "ashley666ashley@gmail.com",
   "carol.nichols@gmail.com",
@@ -207,7 +185,6 @@ members = [
 
 [[lists]]
 address = 'dev-tools@rust-lang.org'
-access_level = 'everyone'
 members = [
   "woboats@gmail.com",
   "manishsmail@gmail.com",
@@ -220,28 +197,24 @@ members = [
 
 [[lists]]
 address = 'dmarc-rua@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-ops@googlegroups.com",
 ]
 
 [[lists]]
 address = 'doc-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "docs@rust-lang.org",
 ]
 
 [[lists]]
 address = 'docker-hub-rustci@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-ops@googlegroups.com",
 ]
 
 [[lists]]
 address = 'docs@rust-lang.org'
-access_level = 'everyone'
 members = [
   "steve@steveklabnik.com",
   "guillaume1.gomez@gmail.com",
@@ -254,7 +227,6 @@ members = [
 
 [[lists]]
 address = 'ecosystem@rust-lang.org'
-access_level = 'everyone'
 members = [
   "ashleymannix@live.com.au",
   "woboats@gmail.com",
@@ -264,14 +236,12 @@ members = [
 
 [[lists]]
 address = 'editors@rust-lang.org'
-access_level = 'everyone'
 members = [
   "ides@rust-lang.org",
 ]
 
 [[lists]]
 address = 'embedded-wg@rust-lang.org'
-access_level = 'everyone'
 members = [
   "david@craven.ch",
   "hanno@braun-robotics.com",
@@ -285,7 +255,6 @@ members = [
 
 [[lists]]
 address = 'ides@rust-lang.org'
-access_level = 'everyone'
 members = [
   "beskvlad@gmail.com",
   "alexheretic@gmail.com",
@@ -299,14 +268,12 @@ members = [
 
 [[lists]]
 address = 'infra-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "infra@rust-lang.org",
 ]
 
 [[lists]]
 address = 'infra@rust-lang.org'
-access_level = 'everyone'
 members = [
   "erick.tryzelaar@gmail.com",
   "mail@timnn.me",
@@ -323,7 +290,6 @@ members = [
 
 [[lists]]
 address = 'lang-private@rust-lang.org'
-access_level = 'everyone'
 members = [
   "nmatsakis@mozilla.com",
   "nick@ncameron.org",
@@ -339,7 +305,6 @@ members = [
 
 [[lists]]
 address = 'lang@rust-lang.org'
-access_level = 'everyone'
 members = [
   "lang-private@rust-lang.org",
   "scott@solson.me",
@@ -348,14 +313,12 @@ members = [
 
 [[lists]]
 address = 'language-design-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "lang@rust-lang.org",
 ]
 
 [[lists]]
 address = 'leads@rust-lang.org'
-access_level = 'everyone'
 members = [
   "wg-leads@rust-lang.org",
   "aturon@mozilla.com",
@@ -369,14 +332,12 @@ members = [
 
 [[lists]]
 address = 'library-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "libs@rust-lang.org",
 ]
 
 [[lists]]
 address = 'libs-private@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "aturon@mozilla.com",
@@ -389,7 +350,6 @@ members = [
 
 [[lists]]
 address = 'libs@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "aturon@mozilla.com",
@@ -405,7 +365,6 @@ members = [
 
 [[lists]]
 address = 'net@rust-lang.org'
-access_level = 'everyone'
 members = [
   "aturon@mozilla.com",
   "mark.simulacrum@gmail.com",
@@ -458,7 +417,6 @@ members = [
 
 [[lists]]
 address = 'production@rust-lang.org'
-access_level = 'everyone'
 members = [
   "aidanhs@cantab.net",
   "nick@ncameron.org",
@@ -468,7 +426,6 @@ members = [
 
 [[lists]]
 address = 'reach@rust-lang.org'
-access_level = 'everyone'
 members = [
   "ashley666ashley@gmail.com",
   "carol.nichols@integer32.com",
@@ -478,7 +435,6 @@ members = [
 
 [[lists]]
 address = 'release@rust-lang.org'
-access_level = 'everyone'
 members = [
   "mark.simulacrum@gmail.com",
   "sertac.olgunsoylu@gmail.com",
@@ -502,7 +458,6 @@ members = [
 
 [[lists]]
 address = 'rust-2018@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "nmatsakis@mozilla.com",
@@ -520,21 +475,18 @@ members = [
 
 [[lists]]
 address = 'rust-dev-tools@rust-lang.org'
-access_level = 'everyone'
 members = [
   "dev-tools@rust-lang.org",
 ]
 
 [[lists]]
 address = 'rust-icci@rust-lang.org'
-access_level = 'everyone'
 members = [
   "mwoerister@mozilla.com",
 ]
 
 [[lists]]
 address = 'rust-key@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "aturon@mozilla.com",
@@ -542,14 +494,12 @@ members = [
 
 [[lists]]
 address = 'rust-mods@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-mods@googlegroups.com",
 ]
 
 [[lists]]
 address = 'rustbridge@rust-lang.org'
-access_level = 'everyone'
 members = [
   "ashley666ashley@gmail.com",
   "amufti16@gmail.com",
@@ -557,7 +507,6 @@ members = [
 
 [[lists]]
 address = 'rustdoc@rust-lang.org'
-access_level = 'everyone'
 members = [
   "grey@quietmisdreavus.net",
   "steve@steveklabnik.com",
@@ -568,7 +517,6 @@ members = [
 
 [[lists]]
 address = 'security@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "nmatsakis@mozilla.com",
@@ -578,7 +526,6 @@ members = [
 
 [[lists]]
 address = 'style-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "scott@solson.me",
   "josh@joshtriplett.org",
@@ -590,21 +537,18 @@ members = [
 
 [[lists]]
 address = 'team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "all@rust-lang.org",
 ]
 
 [[lists]]
 address = 'tools-team@rust-lang.org'
-access_level = 'everyone'
 members = [
   "dev-tools@rust-lang.org",
 ]
 
 [[lists]]
 address = 'trademark@rust-lang.org'
-access_level = 'everyone'
 members = [
   "aturon@mozilla.com",
   "nmatsakis@mozilla.com",
@@ -612,7 +556,6 @@ members = [
 
 [[lists]]
 address = 'twir@rust-lang.org'
-access_level = 'everyone'
 members = [
   "bogusandre@gmail.com",
   "vikrant@webstream.io",
@@ -620,14 +563,12 @@ members = [
 
 [[lists]]
 address = 'underhanded@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-underhanded@googlegroups.com",
 ]
 
 [[lists]]
 address = 'user-logos@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichton@mozilla.com",
   "wycats@gmail.com",
@@ -639,14 +580,12 @@ members = [
 
 [[lists]]
 address = 'verification@rust-lang.org'
-access_level = 'everyone'
 members = [
   "rust-verification@googlegroups.com",
 ]
 
 [[lists]]
 address = 'wasm@rust-lang.org'
-access_level = 'everyone'
 members = [
   "acrichto@mozilla.com",
   "aturon@mozilla.com",
@@ -655,7 +594,6 @@ members = [
 
 [[lists]]
 address = 'wg-leads@rust-lang.org'
-access_level = 'everyone'
 members = [
   "cramertaylorj@gmail.com",
   "woboats@gmail.com",
@@ -666,7 +604,6 @@ members = [
 
 [[lists]]
 address = 'www@rust-lang.org'
-access_level = 'everyone'
 members = [
   "aturon@mozilla.com",
   "ashley666ashley@gmail.com",

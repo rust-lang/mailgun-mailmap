@@ -7,6 +7,8 @@ use std::str;
 use curl::easy::{Easy, Form};
 use failure::{bail, format_err, Error, ResultExt};
 
+const DESCRIPTION: &str = "managed by an automatic script on github";
+
 #[derive(serde_derive::Deserialize)]
 struct Mailmap {
     lists: Vec<List>,
@@ -15,7 +17,6 @@ struct Mailmap {
 #[derive(serde_derive::Deserialize)]
 struct List {
     address: String,
-    access_level: String,
     members: Vec<String>,
 }
 
@@ -24,6 +25,19 @@ mod api {
     pub struct ListResponse {
         pub items: Vec<List>,
         pub paging: Paging,
+    }
+
+    #[derive(serde_derive::Deserialize)]
+    pub struct RoutesResponse {
+        pub items: Vec<Route>,
+        pub total_count: usize,
+    }
+    #[derive(serde_derive::Deserialize)]
+    pub struct Route {
+        pub actions: Vec<String>,
+        pub expression: String,
+        pub id: String,
+        pub description: serde_json::Value,
     }
 
     #[derive(serde_derive::Deserialize)]
@@ -74,29 +88,38 @@ fn run() -> Result<(), Error> {
     let mailmap: Mailmap = toml::from_str(&mailmap)
         .with_context(|_| "failed to deserialize toml mailmap")?;
 
-    let mut lists = Vec::new();
-    let mut response = get::<api::ListResponse>("/lists/pages")?;
+    let mut routes = Vec::new();
+    let mut response = get::<api::RoutesResponse>("/routes")?;
+    let mut cur = 0;
     while response.items.len() > 0 {
-        lists.extend(response.items);
-        response = get::<api::ListResponse>(&response.paging.next)?;
+        cur += response.items.len();
+        routes.extend(response.items);
+        if cur >= response.total_count {
+            break
+        }
+        let url = format!("/routes?skip={}", cur);
+        response = get::<api::RoutesResponse>(&url)?;
     }
 
     let mut addr2list = HashMap::new();
     for list in mailmap.lists.iter() {
-        if addr2list.insert(&list.address, list).is_some() {
+        if addr2list.insert(&list.address[..], list).is_some() {
             bail!("duplicate address: {}", list.address);
         }
     }
 
-    for prev_list in lists {
-        let address = &prev_list.address;
+    for route in routes {
+        if route.description != DESCRIPTION {
+            continue
+        }
+        let address = extract(&route.expression, "match_recipient(\"", "\")");
         match addr2list.remove(address) {
             Some(new_list) => {
-                sync(&prev_list, &new_list)
+                sync(&route, &new_list)
                     .with_context(|_| format!("failed to sync {}", address))?
             }
             None => {
-                del(&prev_list)
+                del(&route)
                     .with_context(|_| format!("failed to delete {}", address))?
             }
         }
@@ -112,59 +135,40 @@ fn run() -> Result<(), Error> {
 
 fn create(new: &List) -> Result<(), Error> {
     let mut form = Form::new();
-    form.part("address").contents(new.address.as_bytes()).add()?;
-    form.part("access_level").contents(new.access_level.as_bytes()).add()?;
-    post::<Empty>("/lists", form)?;
-
-    add_members(&new.address, &new.members)?;
-    Ok(())
-}
-
-fn sync(prev: &api::List, new: &List) -> Result<(), Error> {
-    assert_eq!(prev.address, new.address);
-    let url = format!("/lists/{}", prev.address);
-    if prev.access_level != new.access_level {
-        let mut form = Form::new();
-        form.part("access_level").contents(new.access_level.as_bytes()).add()?;
-        put::<Empty>(&url, form)?;
-    }
-
-    let url = format!("{}/members/pages", url);
-    let mut prev_members = HashSet::new();
-    let mut response = get::<api::MembersResponse>(&url)?;
-    while response.items.len() > 0 {
-        prev_members.extend(response.items.into_iter().map(|member| member.address));
-        response = get::<api::MembersResponse>(&response.paging.next)?;
-    }
-
-    let mut to_add = Vec::new();
+    form.part("priority").contents(b"0").add()?;
+    form.part("description").contents(DESCRIPTION.as_bytes()).add()?;
+    let expr = format!("match_recipient(\"{}\")", new.address);
+    form.part("expression").contents(expr.as_bytes()).add()?;
     for member in new.members.iter() {
-        if !prev_members.remove(member) {
-            to_add.push(member.clone());
-        }
+        form.part("action").contents(format!("forward(\"{}\")", member).as_bytes()).add()?;
     }
-
-    if to_add.len() > 0 {
-        add_members(&new.address, &to_add)?;
-    }
-    for member in prev_members {
-         delete::<Empty>(&format!("/lists/{}/members/{}", new.address, member))?;
-    }
+    post::<Empty>("/routes", form)?;
 
     Ok(())
 }
 
-fn add_members(address: &str, members: &[String]) -> Result<(), Error> {
-    let url = format!("/lists/{}/members.json", address);
-    let data = serde_json::to_string(members)?;
+fn sync(route: &api::Route, list: &List) -> Result<(), Error> {
+    let before = route
+        .actions
+        .iter()
+        .map(|action| extract(action, "forward(\"", "\")"))
+        .collect::<HashSet<_>>();
+    let after = list.members.iter().map(|s| &s[..]).collect::<HashSet<_>>();
+    if before == after {
+        return Ok(())
+    }
+
     let mut form = Form::new();
-    form.part("members").contents(data.as_bytes()).add()?;
-    post::<Empty>(&url, form)?;
+    for member in list.members.iter() {
+        form.part("action").contents(format!("forward(\"{}\")", member).as_bytes()).add()?;
+    }
+    put::<Empty>(&format!("/routes/{}", route.id), form)?;
+
     Ok(())
 }
 
-fn del(prev: &api::List) -> Result<(), Error> {
-    delete::<Empty>(&format!("/lists/{}", prev.address))?;
+fn del(route: &api::Route) -> Result<(), Error> {
+    delete::<Empty>(&format!("/routes/{}", route.id))?;
     Ok(())
 }
 
@@ -266,4 +270,10 @@ fn execute<T: for<'de> serde::Deserialize<'de>>(
             .with_context(|_| "failed to parse json response")?)
     });
     Ok(result.with_context(|_| format!("failed to send request to {}", url))?)
+}
+
+fn extract<'a>(s: &'a str, prefix: &str, suffix: &str) -> &'a str {
+    assert!(s.starts_with(prefix), "`{}` didn't start with `{}`", s, prefix);
+    assert!(s.ends_with(suffix), "`{}` didn't end with `{}`", s, suffix);
+    &s[prefix.len()..s.len() - suffix.len()]
 }
