@@ -56,6 +56,7 @@ members = [
   "docs@rust-lang.org",
   "infra@rust-lang.org",
   "release@rust-lang.org",
+  "cargo@rust-lang.org",
 ]
 
 [[lists]]
