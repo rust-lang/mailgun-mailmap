@@ -420,7 +420,6 @@ members = [
 address = 'production@rust-lang.org'
 members = [
   "aidanhs@cantab.net",
-  "nick@ncameron.org",
   "claus.matzinger@gmail.com",
   "aturon@mozilla.com",
 ]
