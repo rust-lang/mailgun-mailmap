@@ -1,24 +1,13 @@
 use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
 use std::env;
-use std::fs;
 use std::str;
 
 use curl::easy::{Easy, Form};
 use failure::{bail, format_err, Error, ResultExt};
+use rust_team_data::v1 as team_data;
 
 const DESCRIPTION: &str = "managed by an automatic script on github";
-
-#[derive(serde_derive::Deserialize)]
-struct Mailmap {
-    lists: Vec<List>,
-}
-
-#[derive(serde_derive::Deserialize)]
-struct List {
-    address: String,
-    members: Vec<String>,
-}
 
 mod api {
     #[derive(serde_derive::Deserialize)]
@@ -82,11 +71,12 @@ fn main() {
 }
 
 fn run() -> Result<(), Error> {
-    let mailmap = fs::read_to_string("mailmap.toml")
-        .with_context(|_| "failed to read `mailmap.toml`")?;
-
-    let mailmap: Mailmap = toml::from_str(&mailmap)
-        .with_context(|_| "failed to deserialize toml mailmap")?;
+    let api_url = if let Ok(url) = std::env::var("TEAM_DATA_BASE_URL") {
+        format!("{}/lists.json", url)
+    } else {
+        format!("{}/lists.json", team_data::BASE_URL)
+    };
+    let mailmap = get::<team_data::Lists>(&api_url)?;
 
     let mut routes = Vec::new();
     let mut response = get::<api::RoutesResponse>("/routes")?;
@@ -102,7 +92,7 @@ fn run() -> Result<(), Error> {
     }
 
     let mut addr2list = HashMap::new();
-    for list in mailmap.lists.iter() {
+    for list in mailmap.lists.values() {
         if addr2list.insert(&list.address[..], list).is_some() {
             bail!("duplicate address: {}", list.address);
         }
@@ -133,7 +123,7 @@ fn run() -> Result<(), Error> {
     Ok(())
 }
 
-fn create(new: &List) -> Result<(), Error> {
+fn create(new: &team_data::List) -> Result<(), Error> {
     let mut form = Form::new();
     form.part("priority").contents(b"0").add()?;
     form.part("description").contents(DESCRIPTION.as_bytes()).add()?;
@@ -147,7 +137,7 @@ fn create(new: &List) -> Result<(), Error> {
     Ok(())
 }
 
-fn sync(route: &api::Route, list: &List) -> Result<(), Error> {
+fn sync(route: &api::Route, list: &team_data::List) -> Result<(), Error> {
     let before = route
         .actions
         .iter()
@@ -211,7 +201,7 @@ fn execute<T: for<'de> serde::Deserialize<'de>>(
     let result = HANDLE.with(|handle| {
         let mut handle = handle.borrow_mut();
         handle.reset();
-        let url = if url.starts_with("https://") {
+        let url = if url.starts_with("http://") || url.starts_with("https://") {
             url.to_string()
         } else {
             format!("https://api.mailgun.net/v3{}", url)
@@ -236,8 +226,11 @@ fn execute<T: for<'de> serde::Deserialize<'de>>(
                 handle.custom_request("PUT")?;
             }
         }
-        handle.username("api")?;
-        handle.password(&password)?;
+        // Add the API key only for Mailgun requests
+        if url.starts_with("https://api.mailgun.net") {
+            handle.username("api")?;
+            handle.password(&password)?;
+        }
         handle.useragent("rust-lang/rust membership update")?;
         // handle.verbose(true)?;
         let mut result = Vec::new();
