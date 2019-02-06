@@ -81,12 +81,31 @@ fn main() {
     }
 }
 
+fn mangle_address(addr: &str) -> Result<String, Error> {
+    // Escape dots since they have a special meaning in Python regexes
+    let mangled = addr.replace(".", "\\.");
+
+    // Inject (?:\+.+)? before the '@' in the address to support '+' aliases like
+    // infra+botname@rust-lang.org
+    if let Some(at_pos) = mangled.find('@') {
+        let (user, domain) = mangled.split_at(at_pos);
+        Ok(format!("{}(?:\\+.+)?{}", user, domain))
+    } else {
+        bail!("the address `{}` doesn't have any '@'", addr);
+    }
+}
+
 fn run() -> Result<(), Error> {
     let mailmap = fs::read_to_string("mailmap.toml")
         .with_context(|_| "failed to read `mailmap.toml`")?;
 
-    let mailmap: Mailmap = toml::from_str(&mailmap)
+    let mut mailmap: Mailmap = toml::from_str(&mailmap)
         .with_context(|_| "failed to deserialize toml mailmap")?;
+
+    // Mangle all the mailing list addresses
+    for list in mailmap.lists.iter_mut() {
+        list.address = mangle_address(&list.address)?;
+    }
 
     let mut routes = Vec::new();
     let mut response = get::<api::RoutesResponse>("/routes")?;
