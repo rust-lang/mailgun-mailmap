@@ -89,7 +89,7 @@ fn mangle_address(addr: &str) -> Result<String, Error> {
     // infra+botname@rust-lang.org
     if let Some(at_pos) = mangled.find('@') {
         let (user, domain) = mangled.split_at(at_pos);
-        Ok(format!("{}(?:\\+.+)?{}", user, domain))
+        Ok(format!("^{}(?:\\+.+)?{}$", user, domain))
     } else {
         bail!("the address `{}` doesn't have any '@'", addr);
     }
