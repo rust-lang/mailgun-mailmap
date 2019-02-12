@@ -179,7 +179,6 @@ address = 'crates-io@rust-lang.org'
 members = [
   "ashley666ashley@gmail.com",
   "carol.nichols@gmail.com",
-  "acrichton@mozilla.com",
   "sean@seantheprogrammer.com",
 ]
 
